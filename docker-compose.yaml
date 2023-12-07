@@ -117,6 +117,7 @@ services:
 
 networks:
   kong-net:
+    name: blog-backend-network
     driver: bridge
 
 secrets:

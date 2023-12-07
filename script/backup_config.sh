@@ -32,7 +32,7 @@ fi
 # if [ ! -d "$backup_dir" ] || [ ! -f "$kong_backup_file" ]; then
   docker run \
   -v $backup_dir:/deck \
-  --network oauth2-authen_kong-net \
+  --network blog-backend-network \
   kong/deck \
   --kong-addr http://kong-gateway:8001 \
   gateway dump \
