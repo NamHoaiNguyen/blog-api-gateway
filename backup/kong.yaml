@@ -1,35 +1,35 @@
 _format_version: "3.0"
 consumers:
 - oauth2_credentials:
-  - client_id: xnQZBkzXdiEvZqf7wVa45kDFGyt1mjKm
-    client_secret: XiclNNFqQX5ZTAZiWscfrWXoKf6jaTE8
+  - client_id: nk26ExinJ4ThnE7GgTeUUBHQVWhaAcWj
+    client_secret: P0y9Ql8jdlsLNW1qbVDcf6Hl8iMRVeEe
     client_type: confidential
     hash_secret: false
     name: Lightning Storm
     redirect_uris:
     - https://127.0.0.1:3301/callbacks
-  username: tomahawk
+  username: Gozilla
 services:
 - connect_timeout: 60000
   enabled: true
-  host: host.docker.internal
-  name: login-service
-  path: /testlogin
+  host: 172.26.0.2
+  name: testcase-api-1
+  path: /testaccservice
   plugins:
   - config:
       accept_http_if_already_terminated: false
       anonymous: null
       auth_header_name: authorization
       enable_authorization_code: true
-      enable_client_credentials: false
+      enable_client_credentials: true
       enable_implicit_grant: false
       enable_password_grant: false
-      global_credentials: false
+      global_credentials: true
       hide_credentials: false
       mandatory_scope: true
       persistent_refresh_token: false
       pkce: lax
-      provision_key: P0ps7bKEaQXI1kaMdneubXagdruaAM82
+      provision_key: dxXOHEcEqNxEIEMDPKHau8KNLehLCEBe
       refresh_token_ttl: 1209600
       reuse_refresh_token: false
       scopes:
@@ -52,10 +52,65 @@ services:
   retries: 5
   routes:
   - https_redirect_status_code: 426
-    id: 66678431-f8ff-4aec-b55c-cc1bcb783b3f
+    id: 4d801eeb-4e57-433f-9314-fb591cd283d1
     path_handling: v0
     paths:
-    - /login-route
+    - /test-acc-route-1
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: 172.26.0.2
+  name: testcase-api-2
+  path: /testpostservice
+  plugins:
+  - config:
+      accept_http_if_already_terminated: false
+      anonymous: null
+      auth_header_name: authorization
+      enable_authorization_code: true
+      enable_client_credentials: true
+      enable_implicit_grant: false
+      enable_password_grant: false
+      global_credentials: true
+      hide_credentials: false
+      mandatory_scope: true
+      persistent_refresh_token: false
+      pkce: lax
+      provision_key: wm3aYiFFSKApCvYmDfQDcJHChFG7zvyF
+      refresh_token_ttl: 1209600
+      reuse_refresh_token: false
+      scopes:
+      - post_read
+      - post_write
+      - post_delete
+      token_expiration: 7200
+    enabled: true
+    name: oauth2
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+    - ws
+    - wss
+  port: 3301
+  protocol: https
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    id: e0330fae-278b-4f47-9f4c-6912d3d9549f
+    path_handling: v0
+    paths:
+    - /test-post-route-2
     preserve_host: false
     protocols:
     - http
